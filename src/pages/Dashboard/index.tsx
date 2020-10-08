@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToggle } from 'react-use';
 
 import Header from '../../components/Header';
 
@@ -22,12 +23,14 @@ interface IFoodPlate {
 const Dashboard: React.FC = () => {
   const [foods, setFoods] = useState<IFoodPlate[]>([]);
   const [editingFood, setEditingFood] = useState<IFoodPlate>({} as IFoodPlate);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [modalOpen, toggleModal] = useToggle(false);
+  const [editModalOpen, toggleEditModal] = useToggle(false);
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      // TODO LOAD FOODS
+      const response = await api.get('foods');
+
+      setFoods(response.data);
     }
 
     loadFoods();
@@ -37,7 +40,12 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      // TODO ADD A NEW FOOD PLATE TO THE API
+      const { data } = await api.post<IFoodPlate>('foods', {
+        ...food,
+        available: true,
+      });
+
+      setFoods([...foods, data]);
     } catch (err) {
       console.log(err);
     }
@@ -46,23 +54,42 @@ const Dashboard: React.FC = () => {
   async function handleUpdateFood(
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
-    // TODO UPDATE A FOOD PLATE ON THE API
+    try {
+      const updatedFood = {
+        ...editingFood,
+        ...food,
+      };
+
+      const { data } = await api.put(`foods/${editingFood.id}`, updatedFood);
+
+      const updatedFoods = foods.map(existingFood => {
+        if (existingFood.id === data.id) {
+          return { ...data };
+        }
+        return existingFood;
+      });
+
+      setFoods(updatedFoods);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    // TODO DELETE A FOOD PLATE FROM THE API
-  }
+    try {
+      await api.delete(`foods/${id}`);
 
-  function toggleModal(): void {
-    setModalOpen(!modalOpen);
-  }
+      const updatedFoods = foods.filter(food => food.id !== id);
 
-  function toggleEditModal(): void {
-    setEditModalOpen(!editModalOpen);
+      setFoods(updatedFoods);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function handleEditFood(food: IFoodPlate): void {
-    // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
+    setEditingFood(food);
+    toggleEditModal();
   }
 
   return (

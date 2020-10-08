@@ -13,16 +13,32 @@
       "name": "Veggie",
       "description": "Macarrão com pimentão, ervilha e ervas finas colhidas no himalaia.",
       "price": "21.90",
-      "available": true,
+      "available": false,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png"
     },
     {
       "id": 3,
-      "name": "A la Camarón",
-      "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares.",
-      "price": "25.90",
       "available": true,
-      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png",
+      "name": "A la Camaron",
+      "price": "27.90",
+      "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares."
+    },
+    {
+      "id": 4,
+      "available": false,
+      "image": "https://s2.glbimg.com/m_vKdU8BcAwwXuRbLoKyWgt_UbM=/0x0:1024x768/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2017/c/3/BXYWj2RJAB9zK6DqxWIg/nhoque-ana.jpeg",
+      "name": "Nhoque de Ricota",
+      "price": "23.00",
+      "description": "Nhoque de Ricota com Espinafre "
+    },
+    {
+      "id": 5,
+      "available": false,
+      "image": "https://s2.glbimg.com/AlN3adykLHuoDz4eR3RKZPxqvks=/0x0:3000x2000/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2019/B/n/SgBFB0QnCZj2wwHH3rfA/lasanha-com-polpetas-do-chef-ravioli.jpg",
+      "name": "Du Chef",
+      "price": "17.90",
+      "description": "Lasanha com Polpetas do Chef Ravioli"
     }
   ]
 }
